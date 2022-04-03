@@ -33,9 +33,7 @@ campsiteRouter
   })
   .get((req, res) => {
     res.end(
-      res.end(
-        `Will send details of the campsite: ${req.params.campsiteId} to you`
-      )
+      `Will send details of the campsite: ${req.params.campsiteId} to you`
     );
   })
   .put((req, res) => {
@@ -47,7 +45,7 @@ campsiteRouter
     res.statusCode = 403;
     res.end(
       `POST operation not supported on /campsites/${req.params.campsiteId}`
-    )
+    );
   })
   .delete((req, res) => {
     res.end(`Deleting campsite: ${req.params.campsiteId}`);

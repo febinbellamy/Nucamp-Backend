@@ -32,11 +32,7 @@ partnerRouter
     next();
   })
   .get((req, res) => {
-    res.end(
-      res.end(
-        `Will send details of the partner: ${req.params.partnerId} to you`
-      )
-    );
+    res.end(`Will send details of the partner: ${req.params.partnerId} to you`);
   })
   .put((req, res) => {
     res.write(`Updating the partner: ${req.params.partnerId}\n`);

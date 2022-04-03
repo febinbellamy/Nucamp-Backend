@@ -33,9 +33,7 @@ promotionRouter
   })
   .get((req, res) => {
     res.end(
-      res.end(
-        `Will send details of the promotion: ${req.params.promotionId} to you`
-      )
+      `Will send details of the promotion: ${req.params.promotionId} to you`
     );
   })
   .put((req, res) => {
