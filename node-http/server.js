@@ -7,7 +7,6 @@ const port = 3500;
 
 const path = require("path");
 const fs = require("fs");
-const { fileURLToPath } = require("url");
 
 const server = http.createServer((req, res) => {
   console.log(`Requesting for ${req.url} by method ${req.method}`);
@@ -47,7 +46,7 @@ const server = http.createServer((req, res) => {
       `<html><body><h1>Error 404: ${req.method} not supported</h1></body></html>`
     );
   }
-});``
+});
 
 // START THE SERVER
 server.listen(port, hostname, () => {
