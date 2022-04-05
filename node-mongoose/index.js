@@ -13,9 +13,9 @@ connect.then(() => {
   console.log("Connected correctly to the MongoDB server");
 
   Campsite.create({
-    name: 'React Lake Campground',
-    description: 'test'
-})
+    name: "React Lake Campground",
+    description: "test",
+  })
     .then((campsite) => {
       console.log(campsite);
 
