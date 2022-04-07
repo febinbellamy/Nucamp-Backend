@@ -185,7 +185,6 @@ campsiteRouter
           if (req.body.text) {
             campsite.comments.id(req.params.commentId).text = req.body.text;
           }
-
           campsite
             .save()
             .then((campsite) => {
