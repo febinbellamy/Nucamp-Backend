@@ -5,7 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
-// The require function is returning another function as its return value. Then the return function is immediately called.
+const passport = require('passport');
+const authenticate = require('./authenticate');
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -38,35 +39,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser("12345-12345-12345-12345"));
 
-app.use(
-  session({
+app.use(session({
     name: "session-id",
     secret: "12345-12345-12345-12345",
     saveUninitialized: false,
     resave: false,
     store: new FileStore(),
-  })
-);
+  }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 // Basic authentication
 function auth(req, res, next) {
-  console.log(req.session);
+  console.log(req.user);
 
-  if (!req.session.user) {
+  if (!req.user) {
     const err = new Error("You are not authenticated!");
     err.status = 401;
     return next(err);
   } else {
-    if (req.session.user === "authenticated") {
       return next();
-    } else {
-      const err = new Error("You are not authenticated!");
-      err.status = 401;
-      return next(err);
-    }
   }
 }
 
