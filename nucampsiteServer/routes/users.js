@@ -6,9 +6,20 @@ const authenticate = require("../authenticate");
 const router = express.Router();
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+router.get(
+  "/",
+  authenticate.verifyAdmin,
+  authenticate.verifyUser,
+  function (req, res, next) {
+    User.find()
+      .then((users) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(users);
+      })
+      .catch((err) => next(err));
+  }
+);
 
 router.post("/signup", (req, res) => {
   User.register(
@@ -29,8 +40,8 @@ router.post("/signup", (req, res) => {
         user.save((err) => {
           if (err) {
             res.statusCode = 500;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({err: err});
+            res.setHeader("Content-Type", "application/json");
+            res.json({ err: err });
             return;
           }
           passport.authenticate("local")(req, res, () => {
